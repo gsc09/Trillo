@@ -1,0 +1,198 @@
+
+///////////////////////////////////////////////////
+// LOGO
+
+.logo {
+    height: 3.25rem;
+    margin-left: 2rem;
+}
+
+///////////////////////////////////////////////////
+// SEARCH
+
+.search {
+    flex: 0 0 40%; //no grow, no shrink, 40% of parent
+    display: flex;
+    align-items: center; //centers elements along cross axis
+    justify-content: center; //centers elements along main axis
+
+    &__input {
+        // font things don't automatically pull
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+
+        background-color: var(--color-grey-light-2);
+        border: none;
+        padding: 0.7rem 2rem;
+        border-radius: 100px;
+        width: 80%;
+        margin-right: -3.25rem; //makes button appear on top of search bar
+
+        transition: all 0.2s;
+
+        &:focus {
+            outline: none;
+            width: 90%;
+            background-color: var(--color-grey-light-3);
+        }
+
+        &::-webkit-input-placeholder {
+            font-weight: 100;
+            color: var(--color-grey-light-4);
+        }
+    }
+
+    &__input:focus + &__button { //when input is focused, select adjacent sibling button element
+        background-color: var(--color-grey-light-3);
+    }
+
+    &__button {
+        border: none;
+        background-color: var(--color-grey-light-2);
+
+        &:focus {
+            outline: none;
+        }
+
+        &:active {
+            transform: translateY(2px);
+        }
+    }
+
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+        fill: var(--color-grey-dark-3); // color svg element
+    }
+}
+
+
+///////////////////////////////////////////////////
+// USER NAV
+
+.user-nav {
+    display: flex;
+    align-items: center; //center items along cross axis
+    align-self: stretch; //stretch to fill parent height
+
+    & > * { // all direct children of user-nav
+        padding: 0 2rem;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center; //center items along cross axis
+    }
+
+    & > *:hover {
+        background-color: var(--color-grey-light-2);
+    }
+
+    &__icon-box {
+        position: relative;
+    }
+
+    &__icon {
+        height: 2.25rem;
+        width: 2.25rem;
+        fill: var(--color-grey-dark-2);
+    }
+
+    &__notification {
+        font-size: 0.85rem;
+        height: 1.75rem;
+        width: 1.75rem;
+        border-radius: 100%;
+        background-color: var(--color-primary);
+        color: #fff;
+
+        position: absolute;
+        top: 1.5rem;
+        right: 1rem;
+
+        //center text within notification bubble--apparently this works!?
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__user-photo {
+        height: 3.75rem;
+        width: 3.75rem;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    } 
+}
+
+
+///////////////////////////////////////////////////
+// SIDE NAV
+
+.side-nav {
+    font-size: 1.4rem;
+    list-style: none; //remove bullets
+    margin-top: 3.5rem;
+
+    &__item {
+        position: relative;
+
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    &__item::before { //add pseudoelement before list item
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 3px;
+        background-color: var(--color-primary);
+
+        transform: scaleY(0);
+        transition: transform 0.2s,
+                    width 0.3s cubic-bezier(1,0,0,1) 0.2s; //0.2s delay, which is second value
+                    background-color: 0.1s;
+    }
+
+    &__item:hover::before,  //when hover over item, choose the before pseudoelement
+    &__item--active::before { //also style the current active item
+        transform: scaleY(1); //grow in y direction, starting from center (transform-origin is center by default)
+        width: 100%;
+    }
+
+    &__item:active::before {
+        background-color: var(--color-primary-light);
+    }
+
+    &__link:link,
+    &__link:visited {
+        color: var(--color-grey-light-1);
+        text-decoration: none; //remove underline
+        text-transform: uppercase;
+        padding: 1.5rem 3rem;
+        
+        display: flex;
+        align-items: center; //align icons and text
+
+        position: relative;
+        z-index: 10; //zindex only works if position is specified
+    }
+
+    &__icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-right: 2rem;
+        fill: currentColor; //color of parent element - var(--color-grey-light-1);
+                            //ensure icon stays same color as text
+    }
+}
+
+// legal text
+.legal {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2.5rem;
+    color: var(--color-grey-light-4);
+}

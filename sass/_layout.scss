@@ -1,0 +1,37 @@
+
+.container {
+    max-width: 120rem; //can decrease if screen doesn't have enough space
+    min-height: 50rem;
+    margin: 8rem auto;
+    background-color: var(--color-grey-light-1);
+    box-shadow: var(--shadow-dark);
+}
+
+.header {
+    font-size: 1.4rem;
+    height: 7rem;
+    background-color: #fff;
+    border-bottom: 1px solid var(--color-grey-light-2);
+
+    display: flex;
+    justify-content: space-between; // align along main axis
+    align-items: center;
+}
+
+.content {
+    display: flex;
+}
+
+.sidebar {
+    background-color: var(--color-grey-dark-1);
+
+    flex: 0 0 18%; // flex-grow, flex-shrink, flex-basis (width)
+    display: flex;
+    flex-direction: column; //switch axes
+    justify-content: space-between;
+}
+
+.hotel-view {
+    background-color: #fff;
+    flex: 1; // grow horizontally as much as possible
+}
