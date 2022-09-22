@@ -196,3 +196,130 @@
     padding: 2.5rem;
     color: var(--color-grey-light-4);
 }
+
+
+///////////////////////////////////////////////////
+// GALLERY
+
+.gallery {
+
+    display: flex;
+
+    &__photo {
+        width: 100%;
+        display: block; //prevent small space from showing up underneath
+    }
+}
+
+
+///////////////////////////////////////////////////
+// HOTEL OVERVIEW
+
+.overview {
+
+    border-bottom: 1px solid var(--color-grey-light-2);
+    display: flex;
+    align-items: center;
+
+    &__heading {
+        font-size: 2.25rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1.5rem 3rem;
+    }
+
+    &__stars {
+        //flex: 1; //this flex item should grow and occupy all available space
+        margin-right: auto; //does same thing as above, but keeps actual width of element to a minimum
+        display: flex; //removes small space underneath stars, which is there by default if the stars are treated like text
+    }
+
+    &__icon-star,
+    &__icon-location {
+        width: 1.75rem;
+        height: 1.75rem;
+        fill: var(--color-primary);
+    }
+
+    &__location {
+        font-size: 1.2rem;
+
+        //ensure location pin and location name are aligned using flex
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon-location {
+        margin-right: 0.25rem;
+    }
+
+    &__rating {
+        background-color: var(--color-primary);
+        color: #fff;
+        margin-left: 3rem;
+        padding: 0 2.25rem;
+        align-self: stretch; //override center alignment to make stretch
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    &__rating-average {
+        font-size: 2.25rem;
+        font-weight: 300;
+        margin-bottom: -3px;
+    }
+
+    &__rating-count {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+}
+
+
+///////////////////////////////////////////////////
+// INLINE BUTTON
+
+.btn-inline {
+    border: none;
+    color: var(--color-primary);
+    font-size: inherit;
+    border-bottom: 1px solid currentColor; //ensure border has same color as text
+    background-color: transparent;
+    padding-bottom: 2px;
+    display: inline-block;
+    transition: all 0.2s;
+    cursor: pointer;
+    
+    &:hover {
+        color: var(--color-grey-dark-1);
+    }
+
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite; //infinite keyword
+    }
+}
+
+//infinite animation
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 1rem 4rem rgba(0,0,0,0.25);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+
