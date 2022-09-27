@@ -16,6 +16,12 @@
     align-items: center; //centers elements along cross axis
     justify-content: center; //centers elements along main axis
 
+    @media only screen and (max-width: $breakpoint-smallest) {
+        order: 1; //last
+        flex: 0 0 100%; //no shrink, no growth, 100% width
+        background-color: var(--color-grey-light-2);
+    }
+
     &__input {
         // font things don't automatically pull
         font-family: inherit;
@@ -39,7 +45,7 @@
 
         &::-webkit-input-placeholder {
             font-weight: 100;
-            color: var(--color-grey-light-4);
+            color: var(--color-grey-light-5);
         }
     }
 
@@ -133,11 +139,24 @@
     list-style: none; //remove bullets
     margin-top: 3.5rem;
 
+    @media only screen and (max-width: $breakpoint-medium) {
+        display: flex; //forces items to be side by side if screen is small
+        margin: 0;
+    }
+
     &__item {
         position: relative;
 
         &:not(:last-child) {
             margin-bottom: 0.5rem;
+
+            @media only screen and (max-width: $breakpoint-medium) {
+                margin-bottom: 0; //remove margin when nav bar is horizontal
+            }
+        }
+
+        @media only screen and (max-width: $breakpoint-medium) {
+            flex: 1; //max growth
         }
     }
 
@@ -178,6 +197,16 @@
 
         position: relative;
         z-index: 10; //zindex only works if position is specified
+
+        @media only screen and (max-width: $breakpoint-medium) {
+            justify-content: center; //center text when horizontal bar
+            padding: 2rem;
+        }
+
+        @media only screen and (max-width: $breakpoint-small) {
+            flex-direction: column;
+            padding: 1.5rem 0.5rem;
+        }
     }
 
     &__icon {
@@ -186,6 +215,13 @@
         margin-right: 2rem;
         fill: currentColor; //color of parent element - var(--color-grey-light-1);
                             //ensure icon stays same color as text
+
+        @media only screen and (max-width: $breakpoint-small) {
+            margin-right: 0;
+            margin-bottom: 0.7rem;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
     }
 }
 
@@ -195,6 +231,10 @@
     text-align: center;
     padding: 2.5rem;
     color: var(--color-grey-light-4);
+
+    @media only screen and (max-width: $breakpoint-medium) {
+        display: none;
+    }
 }
 
 
@@ -217,7 +257,7 @@
 
 .overview {
 
-    border-bottom: 1px solid var(--color-grey-light-2);
+    border-bottom: var(--line);
     display: flex;
     align-items: center;
 
@@ -227,6 +267,11 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         padding: 1.5rem 3rem;
+
+        @media only screen and (max-width: $breakpoint-small) {
+            font-size: 1.8rem;
+            padding: 1.25rem 2rem;
+        }
     }
 
     &__stars {
@@ -265,17 +310,29 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+
+        @media only screen and (max-width: $breakpoint-small) {
+            padding: 0 1.5rem;
+        }
     }
 
     &__rating-average {
         font-size: 2.25rem;
         font-weight: 300;
         margin-bottom: -3px;
+
+        @media only screen and (max-width: $breakpoint-small) {
+            font-size: 1.8rem;
+        }
     }
 
     &__rating-count {
         font-size: 0.8rem;
         text-transform: uppercase;
+
+        @media only screen and (max-width: $breakpoint-small) {
+            padding: 0.5rem;
+        }
     }
 }
 
@@ -293,9 +350,18 @@
     display: inline-block;
     transition: all 0.2s;
     cursor: pointer;
+
+    & span {
+        margin-left: 3px;
+        transition: margin-left 0.2s;
+    }
     
     &:hover {
         color: var(--color-grey-dark-1);
+
+        span {
+            margin-left: 8px;
+        }
     }
 
     &:focus {
@@ -313,7 +379,7 @@
 
     50% {
         transform: scale(1.05);
-        box-shadow: 0 1rem 4rem rgba(0,0,0,0.25);
+        box-shadow: 0 1rem 4rem rgba(0,0,0,0.25); //x-offset, y-offset, blur, color/transparency
     }
 
     100% {
@@ -321,5 +387,219 @@
         box-shadow: none;
     }
 }
+
+
+///////////////////////////////////////////////////
+// DESCRIPTION
+.paragraph:not(:last-of-type) { //last p element will not have this styling
+    margin-bottom: 2rem;
+}
+
+.list {
+    list-style: none;
+    margin: 3rem 0;
+    padding: 3rem 0;
+    border-top: var(--line);
+    border-bottom: var(--line);
+
+    display: flex;
+    flex-wrap: wrap; //allows flex children to wrap
+
+    &__item {
+        flex: 0 0 50%; //use flex, not width, to enforce width/two elements side by side
+        margin-bottom: 0.7rem;
+    }
+
+    // use SVG in CSS rather than HTML, to reduce repetition of SVG
+    &__item::before {
+        content: "";
+        display: inline-block;
+        height: 1rem;
+        width: 1rem;
+        margin-right: 0.4rem;
+
+        //masking in older browsers
+        // background-image: url(../img/chevron-thin-right.svg);
+        // background-size: cover;
+
+        //masking in newer browsers
+        //defines an area where we can look through and see behind an element
+        //basically like using the chevron as a paper cutout
+        background-color: var(--color-primary);
+        -webkit-mask-image: url(../img/chevron-thin-right.svg);
+        -webkit-mask-size: cover; //ensure entire chevron shows
+        mask-image: url(../img/chevron-thin-right.svg);
+        mask-size: cover; //ensure entire chevron shows
+        
+    }
+}
+
+.recommend {
+    font-size: 1.3rem;
+    color: var(--color-grey-dark-3);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+        // or could put "margin-right: auto" in the &__count styling
+
+    &__count {
+        margin-right: auto;
+    }
+
+    &__friends {
+        display: flex;
+    }
+
+    &__photo {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 100%;
+        border: 3px solid #fff;
+        box-sizing: content-box; //reset to default in this scenario, since we do not want the border to be included in the img width/height
+
+        &:not(:last-child) {
+            margin-right: -2rem;
+        }
+    }
+}
+
+
+///////////////////////////////////////////////////
+// REVIEWS
+.review {
+    background-color: #fff;
+    box-shadow: var(--shadow-light);
+    padding: 3rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+    overflow: hidden;
+
+    @media only screen and (max-width: $breakpoint-medium) {
+        padding: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    &__text {
+        margin-bottom: 2rem;
+        z-index: 10; //set to higher than the bg quotation mark
+        position: relative; //need to set position in order for z-index to work
+    }
+
+    &__user {
+        display: flex;
+        align-items: center; //align vertically
+    }
+
+    &__photo {
+        border-radius: 100%;
+        height: 4.5rem;
+        width: 4.5rem;
+        margin-right: 1rem;
+    }
+
+    &__user-box {
+        margin-right: auto;
+    }
+
+    &__user-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+    }
+
+    &__user-date {
+        font-size: 1rem;
+        color: var(--color-grey-dark-3);
+    }
+
+    &__rating {
+        color: var(--color-primary);
+        font-size: 2.2rem;
+        font-weight: 200;
+    }
+
+    &::before {
+        content: "\201C"; //css-tricks.com/snippets/htmml/glyphs
+        position: absolute; //absolute positioning, + needed for z-index to work
+        top: -2.75rem;
+        left: -0.75rem;
+        font-size: 20rem;
+        color: var(--color-grey-light-2);
+
+        font-family: sans-serif;
+        line-height: 1;
+        z-index: 1;
+    }
+}
+
+
+///////////////////////////////////////////////////
+// CTA (CALL TO ACTION)
+.cta {
+    padding: 3.5rem 0;
+    text-align: center;
+
+    @media only screen and (max-width: $breakpoint-medium) {
+        padding: 2.5rem 0;
+    }
+
+    &__book-now {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+    }
+}
+
+.btn {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    border-radius: 100px;
+    border: none;
+    background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+    color: #fff;
+    position: relative;
+    overflow: hidden; //hide overflowing invisible span
+    cursor: pointer;
+
+    & > * { //all child elements
+        height: 100%;
+        width: 100%;
+        display: inline-block; //needed for padding to work
+        transition: all 0.2s;
+    }
+
+    &__visible {
+        padding: 2rem 7.5rem;
+    }
+
+    &__invisible {
+        position: absolute;
+        padding: 2rem 0; //cannot use 7.5rem on sides because will compress text and make it appear in the button when it shouldn't
+        left: 0;
+        top: -100%; //move up exactly the size of the element
+    }
+
+    &:hover {
+        background-image: linear-gradient(to left, var(--color-primary-light), var(--color-primary-dark));
+    }
+
+    &:hover &__visible {
+        transform: translateY(100%);
+    }
+
+    &:hover &__invisible {
+        top: 0;
+    }
+
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite;
+    }
+}
+
 
 

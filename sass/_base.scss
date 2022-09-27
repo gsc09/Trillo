@@ -16,6 +16,7 @@ Grey dark 3: #999
 
 */
 
+//css custom properties
 :root {
     //root pseudoclass - global parent element, and will be available to all children
     //this is where we can define CSS custom properties (like SCSS variables)
@@ -27,13 +28,25 @@ Grey dark 3: #999
     --color-grey-light-2: #f4f2f2;
     --color-grey-light-3: #f0eeee;
     --color-grey-light-4: #ccc;
+    --color-grey-light-5: #b3b3b3;
 
     --color-grey-dark-1: #333;
     --color-grey-dark-2: #777;
     --color-grey-dark-3: #999;
 
     --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 2rem 5rem rgba(0,0,0,0.06);
+
+    --line: 1px solid var(--color-grey-light-2); //variable containing variable
 }
+
+//sass variables
+$breakpoint-largest: 75em; // 1200px / 16px
+$breakpoint-large: 68.75em; // 1100px / 16px
+$breakpoint-medium: 56.25em; // 900px / 16px
+$breakpoint-small: 37.5em; // 600px / 16px
+$breakpoint-smallest: 31.25em; // 500px / 16px
+
 
 * {
     margin: 0;
@@ -49,6 +62,10 @@ Grey dark 3: #999
 html {
     box-sizing: border-box; //include the padding and border in an element's total width and height
     font-size: 62.5%; //so that 1rem = 10px (10px / 16px, or target / default)
+
+    @media only screen and (max-width: $breakpoint-large) {
+        font-size: 50%;
+    }
 }
 
 body {
