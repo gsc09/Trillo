@@ -419,17 +419,20 @@
         margin-right: 0.4rem;
 
         //masking in older browsers
-        // background-image: url(../img/chevron-thin-right.svg);
-        // background-size: cover;
+        background-image: url(../img/chevron-thin-right.svg);
+        background-size: cover;
 
         //masking in newer browsers
         //defines an area where we can look through and see behind an element
         //basically like using the chevron as a paper cutout
-        background-color: var(--color-primary);
-        -webkit-mask-image: url(../img/chevron-thin-right.svg);
-        -webkit-mask-size: cover; //ensure entire chevron shows
-        mask-image: url(../img/chevron-thin-right.svg);
-        mask-size: cover; //ensure entire chevron shows
+        @supports (-webkit-mask-image: url()) or (mask-image: url()) {
+            background-color: var(--color-primary);
+            -webkit-mask-image: url(../img/chevron-thin-right.svg);
+            -webkit-mask-size: cover; //ensure entire chevron shows
+            mask-image: url(../img/chevron-thin-right.svg);
+            mask-size: cover; //ensure entire chevron shows
+            background-image: none; //undo background-image setting from older browsers
+        }
         
     }
 }
